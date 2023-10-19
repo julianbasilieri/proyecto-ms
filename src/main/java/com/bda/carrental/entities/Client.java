@@ -19,7 +19,7 @@ public class Client {
     @GeneratedValue(generator = "clients")
     @TableGenerator(name = "clients", table = "sqlite_sequence",
             pkColumnName = "name", valueColumnName = "seq",
-            pkColumnValue="id",
+            pkColumnValue="id_client",
             initialValue=1, allocationSize=1)
 
     private long id;

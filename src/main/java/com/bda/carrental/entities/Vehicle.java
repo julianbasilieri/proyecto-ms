@@ -15,7 +15,7 @@ public class Vehicle {
     @GeneratedValue(generator = "Vehicules")
     @TableGenerator(name = "Vehicules", table = "sqlite_sequence",
             pkColumnName = "name", valueColumnName = "seq",
-            pkColumnValue = "id",
+            pkColumnValue = "id_vehicle",
             initialValue = 1, allocationSize = 1)
 
     private long id;

@@ -1,9 +1,6 @@
 package com.bda.carrental.controllers;
 
-import com.bda.carrental.entities.ClientCompany;
 import com.bda.carrental.entities.dto.ClientCompanyDto;
-import com.bda.carrental.entities.dto.ClientDto;
-import jakarta.persistence.PostUpdate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

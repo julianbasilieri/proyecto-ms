@@ -5,9 +5,11 @@ import com.bda.carrental.entities.dto.CarRentalDto;
 import com.bda.carrental.repositories.CarRentalsRepository;
 import com.bda.carrental.services.transformations.carRentals.CarRentalDtoMapper;
 import com.bda.carrental.services.transformations.carRentals.CarRentalsMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.util.Optional;
+@Service
 public class CarRentalsServiceImpl implements CarRentalsService{
     private final CarRentalsRepository carRentalsRepository;
     private final CarRentalDtoMapper carRentalDtoMapper;
@@ -30,21 +32,38 @@ public class CarRentalsServiceImpl implements CarRentalsService{
 
     @Override
     public CarRentalDto getById(Long id) {
-        return null;
+        Optional<CarRental> value = carRentalsRepository.findById(id);
+        return value
+                .map(carRentalDtoMapper)
+                .orElseThrow();
     }
 
     @Override
     public List<CarRentalDto> getAll() {
-        return null;
+        List<CarRental> values = carRentalsRepository.findAll();
+        return values
+                .stream()
+                .map(carRentalDtoMapper)
+                .toList();
     }
 
     @Override
     public CarRentalDto delete(Long id) {
-        return null;
+        Optional<CarRental> optionalCarRental = carRentalsRepository.findById(id);
+        optionalCarRental.ifPresent(carRentalsRepository::delete);
+        return optionalCarRental
+                .map(carRentalDtoMapper)
+                .orElseThrow();
     }
 
     @Override
     public void update(CarRentalDto entity) {
-
+        Optional<CarRental> optionalCarRental = carRentalsRepository.findById(entity.getId());
+        optionalCarRental.ifPresent(carRental -> {
+            carRental.setRentalDate(entity.getRentalDate());
+            carRental.setReturnedDate(entity.getReturnedDate());
+            carRental.setPayed(entity.isPayed());
+            carRentalsRepository.save(carRental);
+        });
     }
 }
